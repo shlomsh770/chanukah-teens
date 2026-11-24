@@ -3,99 +3,117 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>מסיבת חנוכה לנוער</title>
+<title>חנוכה | חב״ד לנוער נאות פרס – הרשמה</title>
+<meta property="og:title" content="חנוכה בחב״ד לנוער נאות פרס – נר שביעי">
+<meta property="og:description" content="יום חמישי, נר שביעי של חנוכה · 19:30 · היציע, אצטדיון סמי עופר. נרשמים כאן!">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-/* VOICE: festive night out for teens, warm and energetic, never loud-cheap
-   IDEA: a menorah lighting up in the dark — entering the page lights the candles
-   PICTURE: large drawn menorah with flickering flames and floating sparks
-   COLOUR and TYPE: deep night indigo, candle gold, one electric cyan; Secular One + Rubik
-   LAYOUT: one column: gate screen → menorah hero → details → form → WhatsApp confirm */
-:root{color-scheme:dark;--bg:#0b0a2a;--bg2:#15124a;--ink:#f4f1ff;--mute:#b9b4e0;--gold:#ffc547;--flame:#ff8a1f;--cyan:#3ef0ff;--line:rgba(255,255,255,.14)}
+/* VOICE: teen Chanukah night, loud neon but tidy
+   IDEA: the event poster come alive — glowing outlined letters, sticker callouts, neon frames
+   PICTURE: vertical neon "חנוכה" over a faint menorah, flanked by speaker card and callouts
+   COLOUR and TYPE: electric blue night, cyan neon, magenta edge light; Rubik 900 + Rubik
+   LAYOUT: poster hero (3 columns) → date/place → register card → footer */
+:root{color-scheme:dark;--bg:#04083a;--ink:#fff;--mute:#b8c6ff;--cyan:#3ff3ff;--cyan2:#18c9ff;--mag:#ff3fd8;--line:rgba(120,220,255,.35)}
 *{box-sizing:border-box;min-width:0}
 html{scroll-behavior:smooth}
-body{margin:0;background:radial-gradient(120% 80% at 50% 0%,#2a1f7a 0%,var(--bg2) 35%,var(--bg) 75%) fixed,var(--bg);color:var(--ink);font:17px/1.55 Rubik,system-ui,sans-serif;overflow-x:clip;min-height:100vh}
-h1,h2,h3{font-family:"Secular One",Rubik,sans-serif;font-weight:400;margin:0;line-height:1.05;text-wrap:balance}
+body{margin:0;color:var(--ink);font:17px/1.5 Rubik,system-ui,sans-serif;overflow-x:clip;min-height:100vh;
+ background:
+  radial-gradient(60% 38% at 62% 0%,rgba(80,240,255,.55),transparent 70%),
+  radial-gradient(40% 30% at 0% 22%,rgba(255,40,80,.35),transparent 70%),
+  radial-gradient(70% 40% at 100% 70%,rgba(40,90,255,.45),transparent 70%),
+  linear-gradient(180deg,#0a2bd6 0%,#0718a0 22%,#050f6a 50%,#030843 75%,#02052a 100%)}
+html{background:#02052a}
 button,input,select,textarea{font:inherit;color:inherit}
-:focus-visible{outline:3px solid var(--cyan);outline-offset:3px;border-radius:12px}
-
-/* sparks background */
+:focus-visible{outline:3px solid var(--cyan);outline-offset:3px;border-radius:10px}
 #sparks{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
 
 /* gate */
-#gate{position:fixed;inset:0;z-index:50;display:grid;place-items:center;text-align:center;padding:24px;background:radial-gradient(70% 50% at 50% 45%,#231b6b,#07061c 80%);transition:opacity .7s,visibility .7s}
+#gate{position:fixed;inset:0;z-index:50;display:grid;place-items:center;text-align:center;padding:24px;
+ background:radial-gradient(60% 45% at 50% 40%,#1238e6,#030a4a 75%);transition:opacity .7s,visibility .7s}
 #gate.gone{opacity:0;visibility:hidden}
-#gate p{color:var(--mute);margin:.6em 0 1.6em}
-#gate h2{font-size:clamp(30px,8vw,48px);color:var(--gold);text-shadow:0 0 24px rgba(255,197,71,.55)}
-.enter{position:relative;border:0;cursor:pointer;padding:18px 38px;border-radius:999px;font-family:"Secular One";font-size:22px;color:#1a1033;background:linear-gradient(180deg,#ffe08a,var(--gold));box-shadow:0 0 0 6px rgba(255,197,71,.15),0 0 40px rgba(255,197,71,.55);min-height:56px}
-.enter:active{transform:scale(.97)}
-.ring{width:84px;height:84px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;background:rgba(255,197,71,.1);box-shadow:0 0 50px rgba(255,197,71,.35)}
+#gate .big{font-weight:900;font-size:clamp(64px,20vw,120px);line-height:1;color:transparent;-webkit-text-stroke:2.5px #e9fdff;
+ text-shadow:0 0 8px var(--cyan),0 0 22px var(--cyan),0 0 46px var(--cyan2)}
+#gate p{color:#d6e4ff;margin:.8em 0 1.6em;font-size:18px}
+.btn{border:0;cursor:pointer;min-height:56px;padding:14px 40px;border-radius:6px;font-weight:700;font-size:22px;color:#06204a;
+ background:linear-gradient(180deg,#f2feff,#9ff6ff);box-shadow:0 0 0 3px #6ff4ff,0 0 26px rgba(63,243,255,.8);text-decoration:none;display:inline-block}
+.btn:active{transform:scale(.97)}
 
-/* sound toggle */
-#snd{position:fixed;top:14px;left:14px;z-index:40;width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:rgba(11,10,42,.7);backdrop-filter:blur(6px);cursor:pointer;display:grid;place-items:center}
+#snd{position:fixed;top:12px;left:12px;z-index:40;width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:rgba(4,8,58,.6);backdrop-filter:blur(6px);cursor:pointer;display:grid;place-items:center}
 #snd svg{width:22px;height:22px}
-.bsd{position:fixed;top:16px;right:18px;z-index:40;font-size:13px;color:var(--mute)}
+.bsd{position:absolute;top:16px;right:20px;z-index:3;font-size:15px}
 
-main{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:64px 18px 48px}
+main{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:0 14px 40px}
 
-/* hero */
-.hero{text-align:center}
-.org{color:var(--cyan);font-weight:500;font-size:15px;letter-spacing:.02em;text-shadow:0 0 14px rgba(62,240,255,.5)}
-.hero h1{font-size:clamp(44px,13vw,76px);margin:.15em 0 .1em;color:#fff;text-shadow:0 0 18px rgba(255,197,71,.7),0 0 46px rgba(255,138,31,.45)}
-.hero .sub{color:var(--mute);font-size:18px;margin:0}
-.meno{width:100%;max-width:470px;margin:18px auto 0;display:block;overflow:visible}
-.flame{opacity:0;transform-box:fill-box;transform-origin:50% 100%;transition:opacity .4s}
-.flame.on{opacity:1;animation:flick 1.6s ease-in-out infinite alternate}
-.glow{opacity:0;transition:opacity .6s}.glow.on{opacity:1}
-@keyframes flick{0%{transform:scale(1,1) skewX(0)}30%{transform:scale(.94,1.06) skewX(2deg)}60%{transform:scale(1.04,.95) skewX(-2deg)}100%{transform:scale(.97,1.04) skewX(1deg)}}
+/* poster hero */
+.poster{position:relative;padding:54px 0 10px;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:6px}
+.meno{position:absolute;inset:18% -6% auto;width:112%;opacity:.38;pointer-events:none;filter:drop-shadow(0 0 6px #6aa8ff)}
+.word{grid-column:2;grid-row:1;margin:0;display:flex;flex-direction:column;align-items:center;font-weight:900;line-height:.98;
+ font-size:clamp(78px,25vw,138px);color:rgba(40,220,255,.08);-webkit-text-stroke:3px #eafcff;
+ text-shadow:0 0 6px #7ff6ff,0 0 16px var(--cyan),0 0 34px var(--cyan2),0 0 60px rgba(24,201,255,.7)}
+.word span:first-child{-webkit-text-stroke-color:#ffe6fb;text-shadow:0 0 6px #ff9cf0,0 0 18px var(--mag),0 0 40px rgba(255,63,216,.6)}
+.word span{animation:hum 4s ease-in-out infinite}
+.word span:nth-child(3){animation-delay:1.3s}
+@keyframes hum{0%,100%{opacity:1}47%{opacity:1}48%{opacity:.55}50%{opacity:1}}
+.side{display:flex;flex-direction:column;gap:22px;position:relative;z-index:2}
+.left{grid-column:3;grid-row:1;align-items:flex-start}
+.right{grid-column:1;grid-row:1;align-items:flex-end}
 
-/* details */
-.when{margin:26px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.when div{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:18px;padding:14px 8px;text-align:center}
-.when b{display:block;font-family:"Secular One";font-size:clamp(17px,4.6vw,22px);color:var(--gold);white-space:nowrap}
-.when span{font-size:14px;color:var(--mute)}
-.count{display:flex;justify-content:center;gap:10px;margin:22px 0 4px;direction:ltr}
-.count div{width:70px;padding:10px 0;border-radius:16px;background:rgba(62,240,255,.07);border:1px solid rgba(62,240,255,.35);text-align:center}
-.count b{display:block;font-family:"Secular One";font-size:28px;color:var(--cyan);line-height:1.1}
-.count span{font-size:13px;color:var(--mute)}
-.cdl{text-align:center;color:var(--mute);font-size:14px}
-.hl{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:10px}
-.hl li{display:flex;gap:14px;align-items:center;padding:14px 16px;border-radius:18px;background:linear-gradient(90deg,rgba(255,197,71,.1),rgba(255,255,255,.03));border:1px solid var(--line)}
-.hl svg{flex:none;width:34px;height:34px}
-.cta{display:block;width:100%;margin-top:26px;text-align:center;text-decoration:none;padding:18px;border-radius:999px;font-family:"Secular One";font-size:22px;color:#08223a;background:linear-gradient(180deg,#9ff8ff,var(--cyan));box-shadow:0 0 34px rgba(62,240,255,.5)}
+.sticker{font-weight:900;line-height:1.02;color:#fff;text-align:center;font-size:clamp(15px,4.4vw,26px);
+ paint-order:stroke fill;-webkit-text-stroke:5px #000;text-shadow:0 3px 0 #000}
+.bubble{position:relative;padding:12px 10px 14px;border:3px solid var(--cyan);box-shadow:0 0 12px var(--cyan),inset 0 0 10px rgba(63,243,255,.4)}
+.bubble::after{content:"";position:absolute;bottom:-16px;inset-inline-start:18px;border:9px solid transparent;border-top-color:var(--cyan);filter:drop-shadow(0 0 4px var(--cyan))}
+.org{font-weight:900;color:var(--cyan);font-size:clamp(18px,5.6vw,30px);line-height:1.02;text-align:center;text-shadow:0 0 14px rgba(63,243,255,.6)}
+.arrows{color:#fff;font-weight:900;letter-spacing:-6px;font-size:30px;text-shadow:0 0 10px var(--mag),0 0 18px var(--mag);direction:ltr}
+.speaker{width:100%}
+.speaker .ph{position:relative;border:3px solid var(--cyan);box-shadow:0 0 14px var(--cyan);aspect-ratio:3/4;overflow:hidden;max-width:150px}
+.speaker img{width:100%;height:100%;object-fit:cover;display:block}
+.speaker .ph::after{content:"✦";position:absolute;left:-2px;bottom:-8px;font-size:34px;color:#fff;text-shadow:0 0 10px #c6a8ff,0 0 20px var(--mag)}
+.speaker b{display:block;font-weight:900;font-size:clamp(17px,4.8vw,24px);margin-top:10px;line-height:1.1}
+.speaker span{display:block;font-size:clamp(15px,4.2vw,20px);line-height:1.15}
+.food{display:grid;place-items:center;gap:10px}
+.food svg{width:min(120px,28vw);height:auto;filter:drop-shadow(0 0 10px var(--mag)) drop-shadow(0 0 18px rgba(63,243,255,.6))}
+
+/* when / where */
+.info{position:relative;z-index:2;margin:24px 6px 0;padding-top:4px}
+.info .d{font-weight:900;font-size:clamp(22px,6.4vw,32px);line-height:1.15}
+.info .d small{display:block;font-size:.78em;font-weight:700}
+.info hr{border:0;border-top:2px solid rgba(255,255,255,.6);margin:12px 0}
+.info .p{font-size:clamp(19px,5.4vw,26px);line-height:1.2}
+.count{display:flex;gap:8px;margin:20px 0 0;direction:ltr;justify-content:flex-end}
+.count div{width:64px;padding:8px 0;border:2px solid var(--cyan);box-shadow:0 0 10px rgba(63,243,255,.55);text-align:center;background:rgba(0,10,60,.4)}
+.count b{display:block;font-weight:900;font-size:24px;color:#eaffff;line-height:1.1}
+.count span{font-size:12px;color:var(--mute)}
+.cdl{color:var(--mute);font-size:14px;margin-top:6px;text-align:end}
+.ctaRow{display:flex;justify-content:space-between;align-items:flex-end;margin-top:26px;gap:12px}
+.logo{width:76px;flex:none;border-radius:6px;box-shadow:0 0 0 2px #fff}
 
 /* form */
-.card{margin-top:44px;padding:26px 20px;border-radius:26px;background:rgba(10,9,38,.78);border:1px solid rgba(62,240,255,.3);box-shadow:0 0 50px rgba(62,240,255,.12);backdrop-filter:blur(8px)}
-.card h2{font-size:clamp(30px,8vw,40px);color:var(--cyan);text-shadow:0 0 18px rgba(62,240,255,.5)}
-.card>p{color:var(--mute);margin:.4em 0 1.2em}
+.card{position:relative;z-index:2;margin-top:40px;padding:24px 18px;background:rgba(3,10,70,.72);border:3px solid var(--cyan);box-shadow:0 0 20px rgba(63,243,255,.55),inset 0 0 18px rgba(63,243,255,.18);backdrop-filter:blur(8px)}
+.card h2{margin:0;font-weight:900;font-size:clamp(30px,8vw,40px);line-height:1.05;color:transparent;-webkit-text-stroke:1.6px #eafcff;text-shadow:0 0 8px var(--cyan),0 0 22px var(--cyan2)}
+.card>form>p,.card>div>p{color:#d6e4ff;margin:.5em 0 1.2em}
 .f{margin-bottom:16px}
 .f label{display:block;font-weight:500;margin-bottom:6px}
 .f label small{color:var(--mute);font-weight:400}
-.f input,.f select,.f textarea{width:100%;min-height:52px;padding:12px 16px;font-size:16px;border-radius:16px;border:1px solid var(--line);background:rgba(0,0,0,.35);outline:none;transition:border-color .2s,box-shadow .2s}
+.f input,.f select,.f textarea{width:100%;min-height:52px;padding:12px 14px;font-size:16px;border-radius:4px;border:2px solid rgba(120,220,255,.35);background:rgba(0,4,40,.55);outline:none;transition:border-color .2s,box-shadow .2s}
 .f textarea{min-height:90px;resize:vertical}
-.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(62,240,255,.2)}
-.f .err{display:none;color:#ff9bb3;font-size:14px;margin-top:5px}
-.f.bad input,.f.bad select{border-color:#ff6b8f}.f.bad .err{display:block}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--cyan);box-shadow:0 0 12px rgba(63,243,255,.45)}
+.f .err{display:none;color:#ffb0d8;font-size:14px;margin-top:5px}
+.f.bad input,.f.bad select{border-color:#ff5fb7}.f.bad .err{display:block}
 .row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
 .step{display:flex;align-items:center;gap:12px}
-.step button{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.06);font-size:24px;cursor:pointer}
-.step output{min-width:2ch;text-align:center;font-family:"Secular One";font-size:24px;color:var(--gold)}
-.go{width:100%;min-height:58px;border:0;border-radius:999px;cursor:pointer;font-family:"Secular One";font-size:22px;color:#1a1033;background:linear-gradient(180deg,#ffe08a,var(--gold));box-shadow:0 0 34px rgba(255,197,71,.5);margin-top:6px}
-.go:active{transform:scale(.98)}
-
-/* done */
+.step button{width:48px;height:48px;border-radius:4px;border:2px solid var(--line);background:rgba(255,255,255,.06);font-size:24px;cursor:pointer}
+.step output{min-width:2ch;text-align:center;font-weight:900;font-size:24px;color:var(--cyan)}
+.go{width:100%}
 #done{display:none;text-align:center}
 #done.show{display:block;animation:pop .5s ease-out}
 @keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
-#done h2{color:var(--gold);text-shadow:0 0 20px rgba(255,197,71,.6)}
-.wa{display:flex;justify-content:center;align-items:center;gap:10px;margin:22px 0 10px;padding:17px;border-radius:999px;text-decoration:none;font-family:"Secular One";font-size:21px;color:#fff;background:#1fae5b;box-shadow:0 0 30px rgba(37,211,102,.45)}
-.wa svg{width:26px;height:26px}
-.sum{text-align:start;margin:16px 0 0;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid var(--line);font-size:15px;white-space:pre-line}
+.sum{text-align:start;margin:16px 0 0;padding:14px 16px;border:1px solid var(--line);background:rgba(255,255,255,.05);font-size:15px;white-space:pre-line}
 .link{background:none;border:0;color:var(--mute);text-decoration:underline;cursor:pointer;min-height:44px;padding:0 10px}
-footer{position:relative;z-index:1;text-align:center;color:var(--mute);font-size:14px;padding:10px 18px 40px}
+footer{position:relative;z-index:1;text-align:center;color:var(--mute);font-size:14px;padding:6px 18px 36px}
 footer a{color:var(--cyan)}
-@media(prefers-reduced-motion:reduce){.flame.on{animation:none}#done.show{animation:none}html{scroll-behavior:auto}}
+@media(max-width:380px){.word{-webkit-text-stroke-width:2.4px}.sticker{-webkit-text-stroke-width:4px}}
+@media(prefers-reduced-motion:reduce){.word span{animation:none}#done.show{animation:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
@@ -103,48 +121,66 @@ footer a{color:var(--cyan)}
 
 <div id="gate">
   <div>
-    <div class="ring"><svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><path d="M20 4c5 7 9 11 9 18a9 9 0 0 1-18 0c0-5 3-8 5-11 1 3 2 5 4 6 0-5 0-9 0-13z" fill="#ffc547"/></svg></div>
-    <h2>חנוכה שמח!</h2>
-    <p>מוכנים להדליק את המסיבה?</p>
-    <button class="enter" id="enterBtn" type="button">לחצו ונכנסים ✦</button>
+    <div class="big">חנוכה</div>
+    <p>חב״ד לנוער נאות פרס מזמינים אתכם</p>
+    <button class="btn" id="enterBtn" type="button">נכנסים ←</button>
   </div>
 </div>
-
-<button id="snd" type="button" aria-label="השתקת מוזיקה" aria-pressed="false"></button>
-<div class="bsd">בס״ד</div>
+<button id="snd" type="button" aria-label="השתקת מוזיקה"></button>
 
 <main>
-  <section class="hero">
-    <div class="org" id="org"></div>
-    <h1 id="title"></h1>
-    <p class="sub" id="sub"></p>
-
-    <svg class="meno" id="meno" viewBox="0 0 460 300" aria-label="חנוכייה דולקת" role="img">
-      <defs>
-        <linearGradient id="gold" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ffe7a1"/><stop offset=".5" stop-color="#e9a92c"/><stop offset="1" stop-color="#9c6510"/></linearGradient>
-        <linearGradient id="fl" x1="0" x2="0" y1="1" y2="0"><stop offset="0" stop-color="#ff5a1f"/><stop offset=".5" stop-color="#ffb02e"/><stop offset="1" stop-color="#fff6c8"/></linearGradient>
-        <radialGradient id="halo"><stop offset="0" stop-color="#ffc547" stop-opacity=".55"/><stop offset="1" stop-color="#ffc547" stop-opacity="0"/></radialGradient>
-      </defs>
-      <g id="arms" fill="none" stroke="url(#gold)" stroke-width="7" stroke-linecap="round"></g>
-      <rect x="224" y="110" width="12" height="150" rx="5" fill="url(#gold)"/>
-      <path d="M180 262h100l14 22H166z" fill="url(#gold)"/>
-      <ellipse cx="230" cy="290" rx="92" ry="7" fill="#000" opacity=".35"/>
-      <g id="cups"></g>
-      <g id="flames"></g>
+  <section class="poster" aria-label="חנוכה בחב״ד לנוער נאות פרס">
+    <div class="bsd">ב״ה</div>
+    <svg class="meno" viewBox="0 0 400 260" aria-hidden="true" fill="none" stroke="#9fc4ff" stroke-width="3" stroke-linecap="round">
+      <g id="menoArms"></g>
+      <path d="M200 70v170M160 246h80"/>
     </svg>
 
-    <div class="when" id="when"></div>
-    <div class="count" id="count" aria-live="off"></div>
-    <div class="cdl" id="cdl"></div>
+    <div class="side left">
+      <div class="arrows" aria-hidden="true">›››</div>
+      <div class="org" id="org"></div>
+      <div class="speaker">
+        <div class="ph"><img src="segev.jpg" alt="שגב כלפון"></div>
+        <b>שגב כלפון</b><span>בהרצאה מרגשת</span><span>מחושך לאור</span>
+      </div>
+    </div>
 
-    <ul class="hl" id="hl"></ul>
-    <a class="cta" href="#reg">להרשמה ←</a>
+    <h1 class="word" aria-label="חנוכה"><span>ח</span><span>נ</span><span>ו</span><span>כ</span><span>ה</span></h1>
+
+    <div class="side right">
+      <div class="bubble sticker">תוכנית<br>אינטראקטיבית<br>מדליקה</div>
+      <div class="food">
+        <svg viewBox="0 0 120 110" aria-hidden="true">
+          <defs><linearGradient id="bun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb35c"/><stop offset="1" stop-color="#c76a1c"/></linearGradient></defs>
+          <path d="M14 46c0-22 20-34 46-34s46 12 46 34z" fill="url(#bun)"/>
+          <g fill="#fff6d8" opacity=".9"><circle cx="40" cy="28" r="1.6"/><circle cx="58" cy="22" r="1.6"/><circle cx="76" cy="29" r="1.6"/><circle cx="50" cy="36" r="1.4"/><circle cx="70" cy="38" r="1.4"/></g>
+          <path d="M10 52c10 6 18-4 28 2s18-4 28 2 18-4 28 2 16-2 16-2v6H10z" fill="#5fd35f"/>
+          <rect x="12" y="58" width="96" height="14" rx="6" fill="#d88a2e"/>
+          <path d="M14 76h92c0 14-20 20-46 20S14 90 14 76z" fill="url(#bun)"/>
+          <path d="M6 62c30-10 78-10 108 0" stroke="#ff3fd8" stroke-width="2.5" fill="none" opacity=".9"/>
+          <path d="M8 84c30 8 74 8 104-2" stroke="#3ff3ff" stroke-width="2.5" fill="none" opacity=".9"/>
+        </svg>
+        <div class="bubble sticker">כיבוד<br>מפנק</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="info">
+    <div class="d" id="when1"></div>
+    <hr>
+    <div class="p" id="place"></div>
+    <div class="count" id="count"></div>
+    <div class="cdl" id="cdl"></div>
+    <div class="ctaRow">
+      <img class="logo" src="cteen.jpg" alt="CTeen חב״ד טינז ישראל" onerror="this.style.display='none'">
+      <a class="btn" href="#reg">מחכים לכם! להרשמה</a>
+    </div>
   </section>
 
   <section class="card" id="reg" aria-labelledby="regT">
     <form id="form" novalidate>
       <h2 id="regT">שומרים לך מקום</h2>
-      <p>ממלאים כמה פרטים ושולחים — זה לוקח חצי דקה.</p>
+      <p>ממלאים כמה פרטים ולוחצים — זה לוקח חצי דקה.</p>
       <div class="f" id="f-name"><label for="name">שם מלא</label><input id="name" autocomplete="name" placeholder="איך קוראים לך?"><div class="err">רק השם, ואפשר להמשיך</div></div>
       <div class="row">
         <div class="f" id="f-phone"><label for="phone">טלפון</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="05X-XXXXXXX" dir="ltr"><div class="err">מספר נייד לא תקין</div></div>
@@ -154,70 +190,42 @@ footer a{color:var(--cyan)}
       <div class="f"><label id="frL">מביאים עוד חברים?</label>
         <div class="step" role="group" aria-labelledby="frL"><button type="button" id="minus" aria-label="פחות">−</button><output id="friends">0</output><button type="button" id="plus" aria-label="יותר">+</button></div></div>
       <div class="f"><label for="note">משהו שחשוב שנדע? <small>(לא חובה)</small></label><textarea id="note" placeholder="שאלה, בקשה, רעיון…"></textarea></div>
-      <button class="go" type="submit">אני בפנים!</button>
-      <p id="err" role="alert" style="color:#ff9bb3;text-align:center;margin:10px 0 0"></p>
+      <button class="btn go" type="submit">אני בפנים!</button>
+      <p id="err" role="alert" style="color:#ffb0d8;text-align:center;margin:10px 0 0"></p>
     </form>
-
     <div id="done" aria-live="polite">
-      <h2>נרשמת! נתראה במסיבה ✦</h2>
-      <p>ההרשמה נקלטה אצלנו. שמרנו לך מקום ליד החנוכייה.</p>
+      <h2>נרשמת! ✦</h2>
+      <p>ההרשמה נקלטה אצלנו. נתראה בנר שביעי!</p>
       <div class="sum" id="sum"></div>
       <button class="link" type="button" id="edit">רישום של מישהו נוסף</button>
     </div>
   </section>
 </main>
-
 <footer id="foot"></footer>
 
 <script>
 {
-// ===== פרטי האירוע — לעריכה =====
 const EV = {
-  org: "חב״ד לנוער · נאות פרס",
-  title: "מסיבת חנוכה",
-  sub: "ערב של אור, מוזיקה וחברים",
+  org: "בחב״ד\nלנוער\nנאות פרס",
   start: "2026-12-10T19:30:00+02:00",
-  when: [["נר שביעי","של חנוכה"],["יום חמישי","10.12"],["19:30","פתיחת דלתות"]],
+  when: ["יום חמישי · נר שביעי של חנוכה", "10.12 · פתיחת דלתות 19:30"],
   place: "מרכז תרבות לנוער ״היציע״ · אצטדיון סמי עופר",
-  highlights: [
-    ["fire", "הדלקת נר שביעי", "כולם יחד, עם שירה"],
-    ["music", "מוזיקה ושמחה", "ריקודים ואווירה של חג"],
-    ["gift", "הפתעות ופרסים", "לכל מי שמגיע"]
-  ],
-  sheetUrl: "https://script.google.com/macros/s/AKfycbx17Ix9ZboOHjG01eIVjI1frgZ8Yg_r0dLn7_uC_uxtdj5A1HKiJIs2azrBl1SPFuyv/exec", // כתובת ה-Web App של Apps Script
+  sheetUrl: "https://script.google.com/macros/s/AKfycbx17Ix9ZboOHjG01eIVjI1frgZ8Yg_r0dLn7_uC_uxtdj5A1HKiJIs2azrBl1SPFuyv/exec",
   whatsapp: "972584207543",
   contactName: "הרב שלומי קופצ׳יק", contactPhone: "058-4207543",
   ages: [11, 18]
 };
-
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-$("org").textContent = EV.org; $("title").textContent = EV.title; $("sub").textContent = EV.sub;
-document.title = EV.title + " | " + EV.org;
-$("when").innerHTML = EV.when
-  .map(([b,s]) => `<div><b>${esc(b)}</b><span>${esc(s)}</span></div>`).join("");
-const icons = {
-  fire:'<svg viewBox="0 0 34 34"><path d="M17 3c4 6 9 10 9 17a9 9 0 0 1-18 0c0-4 2-7 4-9 1 2 2 4 4 5 0-5 0-9 1-13z" fill="#ffc547"/></svg>',
-  music:'<svg viewBox="0 0 34 34"><path d="M12 25V8l15-3v16" fill="none" stroke="#3ef0ff" stroke-width="2.5"/><circle cx="9" cy="25" r="4" fill="#3ef0ff"/><circle cx="24" cy="21" r="4" fill="#3ef0ff"/></svg>',
-  gift:'<svg viewBox="0 0 34 34"><rect x="5" y="13" width="24" height="16" rx="3" fill="#ff8a1f"/><rect x="3" y="9" width="28" height="6" rx="2" fill="#ffc547"/><path d="M17 9v20" stroke="#0b0a2a" stroke-width="3"/><path d="M17 9c-3-6-9-5-8-1s8 1 8 1zm0 0c3-6 9-5 8-1s-8 1-8 1z" fill="#ffc547"/></svg>'
-};
-$("hl").innerHTML = EV.highlights.map(([i,t,d]) => `<li>${icons[i]||""}<div><b>${esc(t)}</b><br><span style="color:var(--mute);font-size:15px">${esc(d)}</span></div></li>`).join("")
-  + `<li><svg viewBox="0 0 34 34"><path d="M17 3a10 10 0 0 0-10 10c0 8 10 18 10 18s10-10 10-18A10 10 0 0 0 17 3z" fill="#3ef0ff"/><circle cx="17" cy="13" r="4" fill="#0b0a2a"/></svg><div><b>${esc(EV.place)}</b></div></li>`;
+$("org").innerHTML = EV.org.split("\n").map(esc).join("<br>");
+$("when1").innerHTML = `${esc(EV.when[0])}<small>${esc(EV.when[1])}</small>`;
+$("place").textContent = EV.place;
 $("foot").innerHTML = `שאלות? ${esc(EV.contactName)} · <a href="https://wa.me/${esc(EV.whatsapp)}" target="_blank" rel="noopener" dir="ltr">${esc(EV.contactPhone)}</a>`;
 const ageSel = $("age");
 for (let a = EV.ages[0]; a <= EV.ages[1]; a++) ageSel.insertAdjacentHTML("beforeend", `<option value="${a}">${a}</option>`);
-
-// ===== menorah =====
-const xs = [50,95,140,185,230,275,320,365,410];
-const arms = xs.filter(x => x !== 230).map(x => { const d = Math.abs(230 - x); return `<path d="M${x} 120 Q${x} ${120 + d * .75} 230 ${120 + d * .75 + 10}"/>`; });
-$("arms").innerHTML = arms.join("");
-$("cups").innerHTML = xs.map(x => { const y = x === 230 ? 82 : 112; return `<rect x="${x-11}" y="${y}" width="22" height="10" rx="3" fill="url(#gold)"/><rect x="${x-5}" y="${y-20}" width="10" height="20" rx="2" fill="#f2ecff" opacity=".9"/>`; }).join("");
-$("flames").innerHTML = xs.map((x, i) => { const y = x === 230 ? 62 : 92; return `<circle class="glow" data-i="${i}" cx="${x}" cy="${y-8}" r="30" fill="url(#halo)"/><path class="flame" data-i="${i}" style="animation-delay:${(i*.17)%1}s" d="M${x} ${y-30} C${x+9} ${y-16} ${x+8} ${y-4} ${x} ${y} C${x-8} ${y-4} ${x-9} ${y-16} ${x} ${y-30}Z" fill="url(#fl)"/>`; }).join("");
-function lightMenorah() {
-  const order = [4,8,7,6,5,3,2,1,0];
-  order.forEach((i, k) => setTimeout(() => document.querySelectorAll(`[data-i="${i}"]`).forEach(el => el.classList.add("on")), 300 + k * 260));
-}
-
+// faint menorah behind the title
+$("menoArms").innerHTML = [40,80,120,160,240,280,320,360].map(x => { const d = Math.abs(200 - x); return `<path d="M${x} 60 V${70 + d*.35} Q${x} ${80 + d*.6} 200 ${90 + d*.6}"/><path d="M${x-8} 58h16M${x} 56v-22"/>`; }).join("") + '<path d="M192 40h16M200 38v-26"/>';
+function lightMenorah() {}
 // ===== countdown =====
 const target = new Date(EV.start).getTime();
 function tick() {
@@ -235,7 +243,7 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 let W, H, P = [];
 function size() { W = cv.width = innerWidth * devicePixelRatio; H = cv.height = innerHeight * devicePixelRatio; }
 size(); addEventListener("resize", size);
-for (let i = 0; i < 46; i++) P.push({x: Math.random(), y: Math.random(), r: Math.random() * 1.8 + .4, v: Math.random() * .0012 + .0004, c: Math.random() < .7 ? "255,197,71" : "62,240,255", p: Math.random() * 6});
+for (let i = 0; i < 46; i++) P.push({x: Math.random(), y: Math.random(), r: Math.random() * 1.8 + .4, v: Math.random() * .0012 + .0004, c: Math.random() < .7 ? "63,243,255" : "255,63,216", p: Math.random() * 6});
 function draw(t) {
   cx.clearRect(0, 0, W, H);
   for (const s of P) {
