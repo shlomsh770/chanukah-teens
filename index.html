@@ -41,6 +41,10 @@ button,input,select,textarea{font:inherit;color:inherit}
 
 #snd{position:fixed;bottom:14px;left:14px;z-index:40;width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:rgba(4,8,58,.6);backdrop-filter:blur(6px);cursor:pointer;display:grid;place-items:center}
 #snd svg{width:22px;height:22px}
+#snd.off{width:auto;padding:0 16px;gap:8px;display:flex;align-items:center;border-radius:999px;background:linear-gradient(180deg,#f2feff,#9ff6ff);color:#06204a;font-weight:700;font-size:15px;box-shadow:0 0 0 2px #6ff4ff,0 0 18px rgba(63,243,255,.7);animation:pulse 1.6s ease-in-out infinite}
+#snd.off svg path{fill:#06204a;stroke:#06204a}
+@keyframes pulse{50%{transform:scale(1.07)}}
+@media(prefers-reduced-motion:reduce){#snd.off{animation:none}}
 .bsd{position:absolute;top:16px;right:20px;z-index:3;font-size:15px}
 
 main{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:0 14px 40px}
@@ -291,7 +295,7 @@ function schedule() {
 }
 const icoOn = '<svg viewBox="0 0 24 24" fill="#3ef0ff"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 8a5 5 0 0 1 0 8M18.5 5.5a8.5 8.5 0 0 1 0 13" stroke="#3ef0ff" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
 const icoOff = '<svg viewBox="0 0 24 24" fill="#b9b4e0"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9l5 6M22 9l-5 6" stroke="#b9b4e0" stroke-width="2" stroke-linecap="round"/></svg>';
-function setIcon() { $("snd").innerHTML = playing ? icoOn : icoOff; $("snd").setAttribute("aria-label", playing ? "השתקת מוזיקה" : "הפעלת מוזיקה"); $("snd").setAttribute("aria-pressed", String(!playing)); }
+function setIcon() { $("snd").classList.toggle("off", !playing); $("snd").innerHTML = playing ? icoOn : icoOff + "<span>הפעלת מוזיקה</span>"; $("snd").setAttribute("aria-label", playing ? "השתקת מוזיקה" : "הפעלת מוזיקה"); $("snd").setAttribute("aria-pressed", String(!playing)); }
 function startMusic() {
   try {
     if (!ac) { ac = new (window.AudioContext || window.webkitAudioContext)(); master = ac.createGain(); master.gain.value = .5; master.connect(ac.destination); }
@@ -305,8 +309,10 @@ setIcon();
 $("snd").addEventListener("click", () => playing ? (userMuted = true, stopMusic()) : (ac ? (ac.resume(), clearInterval(loopT), nextBar = ac.currentTime + .1, loopT = setInterval(schedule, 150), playing = true, setIcon()) : startMusic()));
 // browsers only allow sound after a tap: start music on the first touch anywhere (not on the sound button itself)
 let userMuted = false;
-const firstTap = e => { if (e.target.closest && e.target.closest("#snd")) return; removeEventListener("pointerdown", firstTap); if (!playing && !userMuted) startMusic(); };
-addEventListener("pointerdown", firstTap);
+// phones only allow sound after a real tap (touchend/click, not touchstart)
+const ACT = ["click","touchend","pointerup","keydown"];
+const firstTap = e => { if (e.target.closest && e.target.closest("#snd")) return; ACT.forEach(t => removeEventListener(t, firstTap, true)); if (!playing && !userMuted) startMusic(); };
+ACT.forEach(t => addEventListener(t, firstTap, true));
 
 // ===== form =====
 const okPhone = v => /^0?5\d{8}$/.test(v.replace(/[\s-]/g, ""));
