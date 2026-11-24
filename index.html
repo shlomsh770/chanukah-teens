@@ -195,7 +195,7 @@ footer details p{margin:6px 0;font-size:14px;line-height:1.6}
     <div>שאלות? הרב שלומי והרב שניאור · <a href="https://wa.me/972584207543" target="_blank" rel="noopener" dir="ltr">058-4207543</a></div>
     <details>
       <summary>הצהרת נגישות</summary>
-      <p>אנו פועלים להנגיש את האתר לכלל המשתמשים, כולל אנשים עם מוגבלות. באתר: ניווט במקלדת, תיאורי טקסט לתמונות, ניגודיות צבעים, תוויות לשדות הטופס והתאמה לקוראי מסך ולמסכים קטנים. המוזיקה כבויה כברירת מחדל ומופעלת רק בלחיצה.</p>
+      <p>אנו פועלים להנגיש את האתר לכלל המשתמשים, כולל אנשים עם מוגבלות. באתר: ניווט במקלדת, תיאורי טקסט לתמונות, ניגודיות צבעים, תוויות לשדות הטופס והתאמה לקוראי מסך ולמסכים קטנים. ניתן להשתיק את המוזיקה בכל רגע בכפתור הקבוע בפינת המסך.</p>
       <p>נתקלתם בבעיה? פנו לרכז הנגישות, הרב שלומי קופצ׳יק: 058-4207543. נשמח לסייע ולתקן.</p>
     </details>
   </div>
@@ -280,6 +280,18 @@ function stopMusic() { clearInterval(loopT); if (ac) ac.suspend(); playing = fal
 setIcon();
 $("snd").addEventListener("click", () => playing ? stopMusic() : (ac ? (ac.resume(), clearInterval(loopT), nextBar = ac.currentTime + .1, loopT = setInterval(schedule, 150), playing = true, setIcon()) : startMusic()));
 
+
+// music starts on the first tap anywhere on the page, except inside the registration form or on the music button
+const ACT = ["click", "touchend", "pointerup", "keydown"];
+let userStopped = false;
+const firstTap = e => {
+  const t = e.target;
+  if (t.closest && (t.closest("#snd") || t.closest("#reg"))) return;
+  ACT.forEach(n => removeEventListener(n, firstTap, true));
+  if (!playing && !userStopped) startMusic();
+};
+ACT.forEach(n => addEventListener(n, firstTap, true));
+$("snd").addEventListener("click", () => { if (playing) userStopped = true; });
 
 // form
 const okPhone = v => /^0?5\d{8}$/.test(v.replace(/[\s-]/g, ""));
