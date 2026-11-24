@@ -182,7 +182,10 @@ footer a{color:var(--cyan)}
     <form id="form" novalidate>
       <h2 id="regT">שומרים לך מקום</h2>
       <p>ממלאים כמה פרטים ולוחצים — זה לוקח חצי דקה.</p>
-      <div class="f" id="f-name"><label for="name">שם מלא</label><input id="name" autocomplete="name" placeholder="איך קוראים לך?"><div class="err">רק השם, ואפשר להמשיך</div></div>
+      <div class="row">
+        <div class="f" id="f-name"><label for="name">שם פרטי</label><input id="name" autocomplete="given-name" placeholder="שם פרטי"><div class="err">חסר שם פרטי</div></div>
+        <div class="f" id="f-last"><label for="last">שם משפחה</label><input id="last" autocomplete="family-name" placeholder="שם משפחה"><div class="err">חסר שם משפחה</div></div>
+      </div>
       <div class="row">
         <div class="f" id="f-phone"><label for="phone">טלפון</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="05X-XXXXXXX" dir="ltr"><div class="err">מספר נייד לא תקין</div></div>
         <div class="f" id="f-age"><label for="age">שכבה</label><select id="age"><option value="">בחירה</option><option>ז׳</option><option>ח׳</option><option>ט׳</option><option>י׳</option></select><div class="err">בחרו שכבה</div></div>
@@ -317,18 +320,18 @@ ACT.forEach(t => addEventListener(t, firstTap, true));
 // ===== form =====
 const okPhone = v => /^0?5\d{8}$/.test(v.replace(/[\s-]/g, ""));
 function check(id, ok) { $("f-" + id).classList.toggle("bad", !ok); return ok; }
-try { const d = JSON.parse(localStorage.getItem("teenreg") || "{}"); for (const k of ["name","phone","age","parent","note"]) if (d[k]) $(k).value = d[k]; } catch (e) {}
+try { const d = JSON.parse(localStorage.getItem("teenreg") || "{}"); for (const k of ["name","last","phone","age","parent","school","note"]) if (d[k]) $(k).value = d[k]; } catch (e) {}
 $("form").addEventListener("submit", e => {
   e.preventDefault();
   const v = k => $(k).value.trim();
-  const ok = [check("name", v("name").length > 1), check("phone", okPhone(v("phone"))), check("age", !!v("age")), check("parent", !v("parent") || okPhone(v("parent")))].every(Boolean);
+  const ok = [check("name", v("name").length > 0), check("last", v("last").length > 0), check("phone", okPhone(v("phone"))), check("age", !!v("age")), check("parent", !v("parent") || okPhone(v("parent")))].every(Boolean);
   if (!ok) { document.querySelector(".f.bad input, .f.bad select")?.focus(); return; }
-  try { localStorage.setItem("teenreg", JSON.stringify({name: v("name"), phone: v("phone"), age: v("age"), parent: v("parent"), note: v("note")})); } catch (e) {}
+  try { localStorage.setItem("teenreg", JSON.stringify({name: v("name"), last: v("last"), school: v("school"), phone: v("phone"), age: v("age"), parent: v("parent"), note: v("note")})); } catch (e) {}
   const btn = document.querySelector(".go"); btn.disabled = true; btn.textContent = "שולח…";
-  const data = {name: v("name"), phone: v("phone"), age: v("age"), parent: v("parent"), school: v("school"), note: v("note")};
+  const data = {name: v("name"), last: v("last"), phone: v("phone"), age: v("age"), parent: v("parent"), school: v("school"), note: v("note")};
   fetch(EV.sheetUrl, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify(data)})
     .then(r => r.json()).then(r => { if (!r.ok) throw 0;
-      $("sum").textContent = [`שם: ${data.name}`, `טלפון: ${data.phone}`, `שכבה: ${data.age}`, data.school ? `בית ספר: ${data.school}` : ""].filter(Boolean).join("\n");
+      $("sum").textContent = [`שם: ${data.name} ${data.last}`, `טלפון: ${data.phone}`, `שכבה: ${data.age}`, data.school ? `בית ספר: ${data.school}` : ""].filter(Boolean).join("\n");
       $("form").style.display = "none"; $("done").classList.add("show"); $("reg").scrollIntoView({block: "start"});
       P.forEach(s => s.v *= 3); setTimeout(() => P.forEach(s => s.v /= 3), 2500);
       try { localStorage.removeItem("teenreg"); } catch (e) {}
