@@ -90,6 +90,8 @@ main{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:0 14px 40
 .count b{display:block;font-weight:900;font-size:24px;color:#eaffff;line-height:1.1}
 .count span{font-size:12px;color:var(--mute)}
 .cdl{color:var(--mute);font-size:14px;margin-top:6px;text-align:end}
+.logos{display:flex;gap:12px;align-items:center;justify-content:center}
+.logos .logo{height:72px;width:auto;align-self:auto}
 .ctaRow{display:flex;justify-content:space-between;align-items:flex-end;margin-top:26px;gap:12px}
 .logo{width:76px;flex:none;border-radius:6px;box-shadow:0 0 0 2px #fff}
 
@@ -173,7 +175,7 @@ footer a{color:var(--cyan)}
     <div class="count" id="count"></div>
     <div class="cdl" id="cdl"></div>
     <div class="ctaRow">
-      <img class="logo" src="cteen.jpg" alt="CTeen חב״ד טינז ישראל" onerror="this.style.display='none'">
+      <span class="logos"><img class="logo hf" src="haifa.jpg" alt="עיריית חיפה – מינהל חינוך, תרבות וספורט"><img class="logo" src="cteen.jpg" alt="CTeen חב״ד טינז ישראל" onerror="this.style.display='none'"></span>
       <a class="btn" href="#reg">מחכים לכם! להרשמה</a>
     </div>
   </section>
@@ -185,11 +187,10 @@ footer a{color:var(--cyan)}
       <div class="f" id="f-name"><label for="name">שם מלא</label><input id="name" autocomplete="name" placeholder="איך קוראים לך?"><div class="err">רק השם, ואפשר להמשיך</div></div>
       <div class="row">
         <div class="f" id="f-phone"><label for="phone">טלפון</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="05X-XXXXXXX" dir="ltr"><div class="err">מספר נייד לא תקין</div></div>
-        <div class="f" id="f-age"><label for="age">גיל</label><select id="age"><option value="">בחירה</option></select><div class="err">בחרו גיל</div></div>
+        <div class="f" id="f-age"><label for="age">שכבה</label><select id="age"><option value="">בחירה</option><option>ז׳</option><option>ח׳</option><option>ט׳</option><option>י׳</option></select><div class="err">בחרו שכבה</div></div>
       </div>
       <div class="f" id="f-parent"><label for="parent">טלפון של הורה <small>(לא חובה)</small></label><input id="parent" type="tel" inputmode="tel" placeholder="05X-XXXXXXX" dir="ltr"><div class="err">מספר נייד לא תקין</div></div>
-      <div class="f"><label id="frL">מביאים עוד חברים?</label>
-        <div class="step" role="group" aria-labelledby="frL"><button type="button" id="minus" aria-label="פחות">−</button><output id="friends">0</output><button type="button" id="plus" aria-label="יותר">+</button></div></div>
+      <div class="f"><label for="school">בית ספר <small>(לא חובה)</small></label><input id="school" autocomplete="off" placeholder="באיזה בית ספר את/ה לומד/ת?"></div>
       <div class="f"><label for="note">משהו שחשוב שנדע? <small>(לא חובה)</small></label><textarea id="note" placeholder="שאלה, בקשה, רעיון…"></textarea></div>
       <button class="btn go" type="submit">אני בפנים!</button>
       <p id="err" role="alert" style="color:#ffb0d8;text-align:center;margin:10px 0 0"></p>
@@ -223,7 +224,7 @@ $("when1").innerHTML = `${esc(EV.when[0])}<small>${esc(EV.when[1])}</small>`;
 $("place").textContent = EV.place;
 $("foot").innerHTML = `שאלות? ${esc(EV.contactName)} · <a href="https://wa.me/${esc(EV.whatsapp)}" target="_blank" rel="noopener" dir="ltr">${esc(EV.contactPhone)}</a>`;
 const ageSel = $("age");
-for (let a = EV.ages[0]; a <= EV.ages[1]; a++) ageSel.insertAdjacentHTML("beforeend", `<option value="${a}">${a}</option>`);
+
 // faint menorah behind the title
 function lightMenorah() {}
 // ===== countdown =====
@@ -311,9 +312,6 @@ $("snd").addEventListener("click", () => playing ? stopMusic() : (ac ? (ac.resum
 $("enterBtn").addEventListener("click", () => { $("gate").classList.add("gone"); startMusic(); lightMenorah(); });
 
 // ===== form =====
-let friends = 0;
-$("plus").onclick = () => { friends = Math.min(10, friends + 1); $("friends").textContent = friends; };
-$("minus").onclick = () => { friends = Math.max(0, friends - 1); $("friends").textContent = friends; };
 const okPhone = v => /^0?5\d{8}$/.test(v.replace(/[\s-]/g, ""));
 function check(id, ok) { $("f-" + id).classList.toggle("bad", !ok); return ok; }
 try { const d = JSON.parse(localStorage.getItem("teenreg") || "{}"); for (const k of ["name","phone","age","parent","note"]) if (d[k]) $(k).value = d[k]; } catch (e) {}
@@ -324,17 +322,17 @@ $("form").addEventListener("submit", e => {
   if (!ok) { document.querySelector(".f.bad input, .f.bad select")?.focus(); return; }
   try { localStorage.setItem("teenreg", JSON.stringify({name: v("name"), phone: v("phone"), age: v("age"), parent: v("parent"), note: v("note")})); } catch (e) {}
   const btn = document.querySelector(".go"); btn.disabled = true; btn.textContent = "שולח…";
-  const data = {name: v("name"), phone: v("phone"), age: v("age"), parent: v("parent"), friends, note: v("note")};
+  const data = {name: v("name"), phone: v("phone"), age: v("age"), parent: v("parent"), school: v("school"), note: v("note")};
   fetch(EV.sheetUrl, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify(data)})
     .then(r => r.json()).then(r => { if (!r.ok) throw 0;
-      $("sum").textContent = [`שם: ${data.name}`, `טלפון: ${data.phone}`, `גיל: ${data.age}`, friends ? `מביא/ה עוד ${friends} חברים` : ""].filter(Boolean).join("\n");
+      $("sum").textContent = [`שם: ${data.name}`, `טלפון: ${data.phone}`, `שכבה: ${data.age}`, data.school ? `בית ספר: ${data.school}` : ""].filter(Boolean).join("\n");
       $("form").style.display = "none"; $("done").classList.add("show"); $("reg").scrollIntoView({block: "start"});
       P.forEach(s => s.v *= 3); setTimeout(() => P.forEach(s => s.v /= 3), 2500);
       try { localStorage.removeItem("teenreg"); } catch (e) {}
     }).catch(() => { $("err").textContent = `משהו השתבש בשליחה. נסו שוב, או כתבו ל${EV.contactName} ${EV.contactPhone}`; })
     .finally(() => { btn.disabled = false; btn.textContent = "אני בפנים!"; });
 });
-$("edit").onclick = () => { $("form").reset(); friends = 0; $("friends").textContent = 0; $("err").textContent = ""; $("done").classList.remove("show"); $("form").style.display = ""; };
+$("edit").onclick = () => { $("form").reset(); $("err").textContent = ""; $("done").classList.remove("show"); $("form").style.display = ""; };
 }
 </script>
 </body>
