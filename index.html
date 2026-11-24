@@ -164,7 +164,7 @@ footer a{color:var(--cyan)}
 
 <main>
   <section class="flyerWrap" aria-label="חנוכה בחב״ד לנוער חיפה">
-    <img class="flyer" src="flyer.jpg" width="1024" height="1820" alt="חנוכה – נערי חיפה מוזמנים: שגב כלפון בהרצאה מרגשת מחושך לאור, תוכנית אינטראקטיבית מדליקה, כיבוד מפנק. היציע – מרכז הנוער נאות פרס, אצטדיון סמי עופר (ליד קופות האצטדיון), 10.12 בשעה 20:00">
+    <img class="flyer" src="flyer.jpg" width="1024" height="1538" alt="Save the Date – 10.12.26, 20:00, הדלקת נרות וסופגניות, הרצאה של שגב כלפון (שהיה שבוי בעזה), מרחב פתוח לבני נוער, היציע – מרכז הנוער נאות פרס, אצטדיון סמי עופר (ליד קופות האצטדיון)">
   </section>
   <section class="info">
     <div class="d" id="when1"></div>
@@ -280,7 +280,7 @@ function hat(t) {
   const len = ac.sampleRate * .05, b = ac.createBuffer(1, len, ac.sampleRate), d = b.getChannelData(0);
   for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
   const s = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain();
-  f.type = "highpass"; f.frequency.value = 7000; g.gain.value = .12;
+  f.type = "highpass"; f.frequency.value = 7000; g.gain.value = .2;
   s.buffer = b; s.connect(f); f.connect(g); g.connect(master); s.start(t);
 }
 function schedule() {
@@ -289,9 +289,9 @@ function schedule() {
     for (let b = 0; b < 4; b++) {
       const t = nextBar + b * beat;
       kick(t); hat(t + beat / 2);
-      note(c[0] - 12, t, beat * .9, "triangle", .22);
-      for (let k = 0; k < 2; k++) note(c[(b * 2 + k) % 3] + 12, t + k * beat / 2, beat * .45, "square", .035);
-      if (withLead) note(l[b], t, beat * .85, "sawtooth", .045);
+      note(c[0], t, beat * .9, "triangle", .35);
+      for (let k = 0; k < 2; k++) note(c[(b * 2 + k) % 3] + 12, t + k * beat / 2, beat * .45, "square", .09);
+      note(l[b], t, beat * .85, withLead ? "sawtooth" : "triangle", withLead ? .14 : .22);
     }
     nextBar += 4 * beat; bar++;
   }
@@ -301,7 +301,7 @@ const icoOff = '<svg viewBox="0 0 24 24" fill="#b9b4e0"><path d="M4 9h4l5-4v14l-
 function setIcon() { $("snd").classList.toggle("off", !playing); $("snd").innerHTML = playing ? icoOn : icoOff + "<span>הפעלת מוזיקה</span>"; $("snd").setAttribute("aria-label", playing ? "השתקת מוזיקה" : "הפעלת מוזיקה"); $("snd").setAttribute("aria-pressed", String(!playing)); }
 function startMusic() {
   try {
-    if (!ac) { ac = new (window.AudioContext || window.webkitAudioContext)(); master = ac.createGain(); master.gain.value = .5; master.connect(ac.destination); }
+    if (!ac) { ac = new (window.AudioContext || window.webkitAudioContext)(); master = ac.createGain(); master.gain.value = 1; const comp = ac.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4; master.connect(comp); comp.connect(ac.destination); }
     ac.resume(); nextBar = ac.currentTime + .1; bar = 0;
     clearInterval(loopT); loopT = setInterval(schedule, 150); schedule(); playing = true;
   } catch (e) { playing = false; }
