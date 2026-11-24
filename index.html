@@ -155,13 +155,7 @@ footer a{color:var(--cyan)}
 <body>
 <canvas id="sparks" aria-hidden="true"></canvas>
 
-<div id="gate">
-  <div>
-    <div class="big">חנוכה</div>
-    <p>חב״ד לנוער חיפה מזמינים אתכם · 10.12 · 20:00</p>
-    <button class="btn" id="enterBtn" type="button">נכנסים ←</button>
-  </div>
-</div>
+
 <button id="snd" type="button" aria-label="השתקת מוזיקה"></button>
 
 <main>
@@ -308,8 +302,11 @@ function startMusic() {
 }
 function stopMusic() { clearInterval(loopT); if (ac) ac.suspend(); playing = false; setIcon(); }
 setIcon();
-$("snd").addEventListener("click", () => playing ? stopMusic() : (ac ? (ac.resume(), clearInterval(loopT), nextBar = ac.currentTime + .1, loopT = setInterval(schedule, 150), playing = true, setIcon()) : startMusic()));
-$("enterBtn").addEventListener("click", () => { $("gate").classList.add("gone"); startMusic(); lightMenorah(); });
+$("snd").addEventListener("click", () => playing ? (userMuted = true, stopMusic()) : (ac ? (ac.resume(), clearInterval(loopT), nextBar = ac.currentTime + .1, loopT = setInterval(schedule, 150), playing = true, setIcon()) : startMusic()));
+// browsers only allow sound after a tap: start music on the first touch anywhere (not on the sound button itself)
+let userMuted = false;
+const firstTap = e => { if (e.target.closest && e.target.closest("#snd")) return; removeEventListener("pointerdown", firstTap); if (!playing && !userMuted) startMusic(); };
+addEventListener("pointerdown", firstTap);
 
 // ===== form =====
 const okPhone = v => /^0?5\d{8}$/.test(v.replace(/[\s-]/g, ""));
